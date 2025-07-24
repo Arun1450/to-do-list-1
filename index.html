@@ -1,166 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>To-Do List</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #36c595, #41add8, #84be1f);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #fff;
-        }
-        #todo-container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px 40px;
-            border-radius: 15px;
-            width: 100%;
-            max-width: 450px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(8.5px);
-            -webkit-backdrop-filter: blur(8.5px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-        h1 {
-            text-align: center;
-            color: #fff;
-            font-weight: 700;
-            font-size: 2.5rem;
-            margin-bottom: 25px;
-            letter-spacing: 2px;
-        }
-        #new-task-form {
-            display: flex;
-            margin-bottom: 25px;
-        }
-        #new-task-input {
-            flex-grow: 1;
-            padding: 12px 15px;
-            font-size: 18px;
-            border: none;
-            border-radius: 10px 0 0 10px;
-            outline: none;
-            color: #333;
-        }
-        #add-task-button {
-            padding: 12px 25px;
-            font-size: 18px;
-            border: none;
-            background-color: #ff6f61;
-            color: white;
-            border-radius: 0 10px 10px 0;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-        }
-        #add-task-button:hover {
-            background-color: #ff3b2f;
-        }
-        ul#task-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            max-height: 300px;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: #3e2826 transparent;
-        }
-        ul#task-list::-webkit-scrollbar {
-            width: 8px;
-        }
-        ul#task-list::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ul#task-list::-webkit-scrollbar-thumb {
-            background-color: #ff6f61;
-            border-radius: 10px;
-            border: 2px solid transparent;
-        }
-        ul#task-list li {
-            padding: 12px 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 18px;
-            color: #190e0e;
-            transition: background-color 0.3s ease;
-            border-radius: 8px;
-            margin-bottom: 8px;
-        }
-        ul#task-list li:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        ul#task-list li.completed span.task-text {
-            text-decoration: line-through;
-            color: #bbb;
-        }
-        button.delete-button {
-            background: transparent;
-            border: none;
-            color: #ff6f61;
-            font-size: 22px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        button.delete-button:hover {
-            color: #ff3b2f;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>To-Do List</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a1a2e;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .background-lines {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.05) 1px, transparent 1px), 
+                  linear-gradient(-135deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: moveLines 20s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes moveLines {
+      0% {
+        background-position: 0 0, 0 0;
+      }
+      100% {
+        background-position: 40px 40px, -40px -40px;
+      }
+    }
+
+    #todo-container {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 30px 40px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 450px;
+      margin: auto;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(8.5px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeIn 1s ease-out;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 28px;
+      height: 28px;
+      fill: #ff7f50;
+    }
+
+    #new-task-form {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    #new-task-input {
+      flex: 1;
+      padding: 12px 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px 0 0 10px;
+      outline: none;
+      color: #333;
+    }
+
+    #add-task-button {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #ff7f50;
+      color: white;
+      border-radius: 0 10px 10px 0;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    #add-task-button:hover {
+      background-color: #ff5722;
+    }
+
+    ul#task-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul#task-list li {
+      background: rgba(255, 255, 255, 0.6);
+      color: #111;
+      padding: 12px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      transition: 0.3s;
+      cursor: move;
+    }
+
+    ul#task-list li.completed .task-text {
+      text-decoration: line-through;
+      color: #777;
+    }
+
+    .task-text {
+      flex: 1;
+      cursor: pointer;
+    }
+
+    button.delete-button {
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      color: #ff7f50;
+      cursor: pointer;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div id="todo-container">
-        <h1>To-Do List</h1>
-        <form id="new-task-form">
-            <input type="text" id="new-task-input" placeholder="Add a new task..." autocomplete="off" />
-            <button type="submit" id="add-task-button">Add</button>
-        </form>
-        <ul id="task-list"></ul>
-    </div>
+  <div class="background-lines"></div>
 
-    <script>
-        const form = document.getElementById('new-task-form');
-        const input = document.getElementById('new-task-input');
-        const taskList = document.getElementById('task-list');
+  <div id="todo-container">
+    <h1>
+      <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50">
+        <path d="M0,25 C0,0 50,0 50,25 C50,50 100,50 100,25 C100,0 50,0 50,25 C50,50 0,50 0,25 Z" />
+      </svg>
+      To-Do List
+    </h1>
 
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const taskText = input.value.trim();
-            if (taskText !== '') {
-                addTask(taskText);
-                input.value = '';
-                input.focus();
-            }
-        });
+    <form id="new-task-form">
+      <input type="text" id="new-task-input" placeholder="Add a new task..." />
+      <button type="submit" id="add-task-button">Add</button>
+    </form>
 
-        function addTask(text) {
-            const li = document.createElement('li');
+    <ul id="task-list"></ul>
 
-            const span = document.createElement('span');
-            span.className = 'task-text';
-            span.textContent = text;
-            span.style.cursor = 'pointer';
-            span.addEventListener('click', () => {
-                li.classList.toggle('completed');
-            });
+    <div class="footer">© 2025 YourName. All rights reserved.</div>
+  </div>
 
-            const deleteButton = document.createElement('button');
-            deleteButton.className = 'delete-button';
-            deleteButton.innerHTML = '&times;';
-            deleteButton.addEventListener('click', () => {
-                taskList.removeChild(li);
-            });
+  <script>
+    const form = document.getElementById('new-task-form');
+    const input = document.getElementById('new-task-input');
+    const taskList = document.getElementById('task-list');
 
-            li.appendChild(span);
-            li.appendChild(deleteButton);
-            taskList.appendChild(li);
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (text !== '') {
+        addTask(text);
+        input.value = '';
+        input.focus();
+      }
+    });
+
+    function addTask(text) {
+      const li = document.createElement('li');
+      li.setAttribute('draggable', 'true');
+
+      const span = document.createElement('span');
+      span.className = 'task-text';
+      span.textContent = text;
+      span.addEventListener('click', () => {
+        li.classList.toggle('completed');
+      });
+
+      const del = document.createElement('button');
+      del.className = 'delete-button';
+      del.innerHTML = '&times;';
+      del.addEventListener('click', () => {
+        li.remove();
+      });
+
+      li.appendChild(span);
+      li.appendChild(del);
+      taskList.appendChild(li);
+    }
+
+    // Drag and drop to reorder
+    let draggedItem = null;
+
+    taskList.addEventListener('dragstart', function (e) {
+      if (e.target.tagName === 'LI') {
+        draggedItem = e.target;
+      }
+    });
+
+    taskList.addEventListener('dragover', function (e) {
+      e.preventDefault();
+      const afterElement = getDragAfterElement(taskList, e.clientY);
+      if (afterElement == null) {
+        taskList.appendChild(draggedItem);
+      } else {
+        taskList.insertBefore(draggedItem, afterElement);
+      }
+    });
+
+    function getDragAfterElement(container, y) {
+      const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
+      return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
         }
-    </script>
+      }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+  </script>
 </body>
 </html>
