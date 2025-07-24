@@ -6,76 +6,111 @@
     <title>To-Do List</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #36c595, #41add8, #84be1f);
             margin: 0;
             padding: 20px;
             display: flex;
             justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
         }
         #todo-container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px 40px;
+            border-radius: 15px;
             width: 100%;
-            max-width: 400px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 450px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(8.5px);
+            -webkit-backdrop-filter: blur(8.5px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: #fff;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
         }
         #new-task-form {
             display: flex;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         #new-task-input {
             flex-grow: 1;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 4px 0 0 4px;
+            padding: 12px 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px 0 0 10px;
             outline: none;
+            color: #333;
         }
         #add-task-button {
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 12px 25px;
+            font-size: 18px;
             border: none;
-            background-color: #28a745;
+            background-color: #ff6f61;
             color: white;
-            border-radius: 0 4px 4px 0;
+            border-radius: 0 10px 10px 0;
             cursor: pointer;
+            font-weight: 600;
             transition: background-color 0.3s ease;
         }
         #add-task-button:hover {
-            background-color: #218838;
+            background-color: #ff3b2f;
         }
         ul#task-list {
             list-style: none;
             padding: 0;
             margin: 0;
+            max-height: 300px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #3e2826 transparent;
+        }
+        ul#task-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        ul#task-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ul#task-list::-webkit-scrollbar-thumb {
+            background-color: #ff6f61;
+            border-radius: 10px;
+            border: 2px solid transparent;
         }
         ul#task-list li {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 18px;
+            color: #190e0e;
+            transition: background-color 0.3s ease;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        ul#task-list li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
         ul#task-list li.completed span.task-text {
             text-decoration: line-through;
-            color: #888;
+            color: #bbb;
         }
         button.delete-button {
             background: transparent;
             border: none;
-            color: #dc3545;
-            font-size: 18px;
+            color: #ff6f61;
+            font-size: 22px;
             cursor: pointer;
             transition: color 0.3s ease;
         }
         button.delete-button:hover {
-            color: #bd2130;
+            color: #ff3b2f;
         }
     </style>
 </head>
